@@ -14,15 +14,15 @@ class AddOperation(Operation):
     def __init__(self):
         Operation.__init__(self, 'add')
 
-    def getTemplateName(self):
-        if len(self.arguments) != 1:
+    def getTemplateName(self, arguments):
+        if len(arguments) != 1:
             print('Template name argument missing. Please provide a template name.')
         else:
-            return self.arguments[0]
+            return arguments[0]
 
     def run(self, arguments):
-        self.arguments = arguments
-        templateName = self.getTemplateName()
+        workingDirectory = os.getcwd()
+        templateName = self.getTemplateName(arguments)
         filePath = 'template_builder_files/' + templateName + '.template'
         templateContent = FileManager().readFileContent(filePath)
 
@@ -46,7 +46,7 @@ class AddOperation(Operation):
 
             # Content section
             elif isinstance(section, Content):
-                Executor.writeFile(section, allVariables, os.getcwd())
+                Executor.writeFile(section, allVariables, workingDirectory)
 
             else:
                 print('Unknown section found')
