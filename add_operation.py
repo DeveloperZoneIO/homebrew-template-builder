@@ -8,6 +8,7 @@ from variable import VariableSection, Variable
 from script import Script
 from content import Content
 from opearation import Operation
+from config import Config
 
 class AddOperation(Operation):
 
@@ -20,10 +21,10 @@ class AddOperation(Operation):
         else:
             return arguments[0]
 
-    def run(self, arguments):
+    def run(self, arguments, config):
         workingDirectory = os.getcwd()
         templateName = self.getTemplateName(arguments)
-        filePath = 'template_builder_files/' + templateName + '.template'
+        filePath = config.localTemplateDirectoryPath + templateName + '.tbf'
         templateContent = FileManager().readFileContent(filePath)
 
         if templateContent is None:
