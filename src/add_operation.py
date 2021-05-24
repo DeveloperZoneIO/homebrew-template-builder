@@ -3,11 +3,12 @@ import os
 from template import Template
 from file_manager import FileManager
 from template_parser import TemplateParser
-from runner import Runner
 from variable import VariableSection, Variable
 from script import Script
 from content import Content
 from opearation import Operation
+from config import Config
+from input import mockInputs
 
 class AddOperation(Operation):
 
@@ -20,10 +21,10 @@ class AddOperation(Operation):
         else:
             return arguments[0]
 
-    def run(self, arguments):
+    def run(self, arguments, config):
         workingDirectory = os.getcwd()
         templateName = self.getTemplateName(arguments)
-        filePath = 'template_builder_files/' + templateName + '.template'
+        filePath = config.localTemplatesPath + templateName + '.tbf'
         templateContent = FileManager().readFileContent(filePath)
 
         if templateContent is None:
@@ -68,7 +69,12 @@ class Executor:
     @staticmethod
     def askForVariableValues(variableSection):
         for variable in variableSection.variables:
-            variable.value = raw_input(variable.prompt + ': ')
+            if len(mockInputs) != 0:
+                mockValue = mockInputs[0]
+                variable.value = mockValue
+                mockInputs.remove(mockValue)
+            else:
+                variable.value = raw_input(variable.prompt + ': ')
 
     @staticmethod
     def executeScript(scriptSection, variables):

@@ -8,7 +8,7 @@ class FileManager:
 
     def readFileContent(self, filePath):
         if os.path.isfile(filePath) != True: 
-            return
+            raise Exception(filePath + ' is no file!')
 
         file = open(filePath)
         fileContent = file.read()
