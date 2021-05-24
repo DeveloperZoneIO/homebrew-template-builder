@@ -1,6 +1,5 @@
 {
-  "template": {
-    "local_template_folder_path": "/Users/mp/Desktop/templates/",
-    "remote_template_folder_path": "template_builder_files/"
+  "localTemplates": {
+    "path": "templates/"
   }
 }
