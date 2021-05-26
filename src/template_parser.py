@@ -4,7 +4,7 @@ from content import Content
 
 class TemplateParser:
     def parseSections(self, templateContent):
-        sectionContents = templateContent.split('###')
+        sectionContents = templateContent.split('@_')
         sectionObjects = []
 
         for sectionContent in sectionContents:

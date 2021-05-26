@@ -1,14 +1,13 @@
-### input
+@_input
 movieTitle? Name your cubit
 releaseData? When was the movie released?
 movieRating? Rate this movie
 
-### script
+@_script
 titleAndRating = movieTitle + " (" + movieRating + ")"
 formattedReleaseDate = releaseData.replace("/", ".")
 
-### output
-# path? /src/test_generated/movies/{{movieTitle}}.txt
+@_output
+- path? /src/test_generated/movies/{{movieTitle}}.txt
 {{titleAndRating}}
 Released on {{formattedReleaseDate}}
-
