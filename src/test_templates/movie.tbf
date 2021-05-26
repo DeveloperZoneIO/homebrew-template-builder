@@ -1,13 +1,13 @@
-### vars
+### input
 movieTitle? Name your cubit
 releaseData? When was the movie released?
 movieRating? Rate this movie
 
-### py_script
+### script
 titleAndRating = movieTitle + " (" + movieRating + ")"
 formattedReleaseDate = releaseData.replace("/", ".")
 
-### content
+### output
 # path? /src/test_generated/movies/{{movieTitle}}.txt
 {{titleAndRating}}
 Released on {{formattedReleaseDate}}

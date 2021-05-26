@@ -23,11 +23,11 @@ class TemplateParser:
         sectionName = sectionNameAndContent[0].strip().lower()
         sectionContent = sectionNameAndContent[1]
 
-        if sectionName == 'vars':
+        if sectionName == 'input':
             return self._parseVariableSection(sectionContent)
-        elif sectionName == 'py_script':
+        elif sectionName == 'script':
             return self._parseScriptSection(sectionContent)
-        elif sectionName == 'content':
+        elif sectionName == 'output':
             return self._parseTemplateSection(sectionContent)
         else:
             print('Invalid section name: ' + sectionName)
