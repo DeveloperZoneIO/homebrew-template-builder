@@ -4,16 +4,16 @@ var1? Enter value for var 1
 var2? Enter value for var 2
 
 ### content
-path? /src/test_generated/{{fileName}}1.txt
+# path? /src/test_generated/{{fileName}}1.txt
 {{var1}}
 {{var2}}
 
 ### content
-path? /src/test_generated/{{fileName}}2.txt
+# path? /src/test_generated/{{fileName}}2.txt
 {{var1}}
 {{var2}}
 
 ### content
-path? /src/test_generated/{{fileName}}3.txt
+# path? /src/test_generated/{{fileName}}3.txt
 {{var1}}
 {{var2}}

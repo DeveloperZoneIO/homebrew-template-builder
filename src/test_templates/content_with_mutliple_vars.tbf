@@ -7,6 +7,6 @@ var2? Enter value for var 2
 fullFileName = fileName + ".txt"
 
 ### content
-path? /src/test_generated/{{fullFileName}}
+# path? /src/test_generated/{{fullFileName}}
 {{var1}}
 {{var2}}

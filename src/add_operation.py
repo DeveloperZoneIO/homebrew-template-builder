@@ -100,7 +100,7 @@ class Executor:
         path = contentSection.data.split('\n', 1)[0].strip()
         content = contentSection.data.split('\n', 1)[1].strip()
 
-        if 'path?' not in path:
+        if '#path?' not in path.replace(' ', ''):
             path = '/'
             content = contentSection.data.strip()
         else:
