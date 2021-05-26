@@ -97,19 +97,26 @@ class Executor:
 
     @staticmethod
     def writeFile(contentSection, variables, scriptPath):
-        path = contentSection.data.split('\n', 1)[0].strip()
-        content = contentSection.data.split('\n', 1)[1].strip()
+        contentAndProperties = Executor._replacePlaceholdersIn(contentSection.data, variables)
+        properties = {}
+        lines = contentAndProperties.split('\n')
 
-        if 'path:' not in path:
-            path = '/'
-            content = contentSection.data.split('\n', 2)[1].strip()
-        else:
-            path = path.split(':')[1].strip()
+        for line in lines:
+            strippedLine = line.strip()
+            if strippedLine is not '' and strippedLine[0] == '-':
+                propName = strippedLine.split('?', 1)[0].strip().replace(' ', '')
+                propValue = strippedLine.split('?', 1)[1].strip()
+                properties[propName] = propValue
 
-        finalPath = Executor._replacePlaceholdersIn(path, variables)
-        finalContent = Executor._replacePlaceholdersIn(content, variables)
-        completePath = scriptPath + finalPath
-        fileDir = os.path.dirname(scriptPath + finalPath)
+        if '-path' not in properties:
+            raise Exception('Missing path? in output section. Please provide a path!')
+
+        path = properties['-path']
+        propCount = len(properties)
+        content = contentAndProperties.split('\n', propCount)[propCount].strip()
+        
+        completePath = scriptPath + path
+        fileDir = os.path.dirname(scriptPath + path)
 
         if not os.path.exists(fileDir):
             try:
@@ -119,5 +126,5 @@ class Executor:
                     raise
 
         file = open(completePath, 'w')
-        file.write(finalContent)
+        file.write(content)
         file.close()

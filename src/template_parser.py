@@ -4,7 +4,7 @@ from content import Content
 
 class TemplateParser:
     def parseSections(self, templateContent):
-        sectionContents = templateContent.split('###')
+        sectionContents = templateContent.split('@_')
         sectionObjects = []
 
         for sectionContent in sectionContents:
@@ -23,11 +23,11 @@ class TemplateParser:
         sectionName = sectionNameAndContent[0].strip().lower()
         sectionContent = sectionNameAndContent[1]
 
-        if sectionName == 'vars':
+        if sectionName == 'input':
             return self._parseVariableSection(sectionContent)
-        elif sectionName == 'py_script':
+        elif sectionName == 'script':
             return self._parseScriptSection(sectionContent)
-        elif sectionName == 'content':
+        elif sectionName == 'output':
             return self._parseTemplateSection(sectionContent)
         else:
             print('Invalid section name: ' + sectionName)
@@ -38,7 +38,7 @@ class TemplateParser:
         variables = []
 
         for line in lines:
-            nameAndPrompt = line.split(':')
+            nameAndPrompt = line.split('?', 1)
 
             if len(nameAndPrompt) == 2 and nameAndPrompt[0].strip() != '':
                 name = nameAndPrompt[0].strip()

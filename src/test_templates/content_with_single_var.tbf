@@ -1,7 +1,7 @@
-### vars
-someInput: Type in some random text
+@_input
+someInput? Type in some random text
 
-### content
-path: /src/test_generated/single_var_and_content.txt
+@_output
+- path? /src/test_generated/single_var_and_content.txt
 Your random input is: {{someInput}}
 Your inputs variable is named someInput
