@@ -100,11 +100,11 @@ class Executor:
         path = contentSection.data.split('\n', 1)[0].strip()
         content = contentSection.data.split('\n', 1)[1].strip()
 
-        if 'path:' not in path:
+        if 'path?' not in path:
             path = '/'
-            content = contentSection.data.split('\n', 2)[1].strip()
+            content = contentSection.data.strip()
         else:
-            path = path.split(':')[1].strip()
+            path = path.split('?', 1)[1].strip()
 
         finalPath = Executor._replacePlaceholdersIn(path, variables)
         finalContent = Executor._replacePlaceholdersIn(content, variables)
