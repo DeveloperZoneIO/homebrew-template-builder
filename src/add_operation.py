@@ -113,10 +113,13 @@ class Executor:
 
         path = properties['-path']
         writeFile = 'true'
+        replaceExistingFile = 'true'
 
         if '-writeFile' in properties:
             writeFile = properties['-writeFile'].lower()
 
+        if '-replaceExistingFile' in properties:
+            replaceExistingFile = properties['-replaceExistingFile'].lower()
         
         if writeFile is not 'true':
             return
@@ -133,6 +136,9 @@ class Executor:
             except OSError as exc:
                 if exc.errno != errno.EEXIST:
                     raise
+
+        if os.path.isfile(completePath) and replaceExistingFile != 'true':
+            return
 
         file = open(completePath, 'w')
         file.write(content)

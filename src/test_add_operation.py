@@ -19,13 +19,23 @@ class AddOperationTest(unittest.TestCase):
         self.assertEqual(expected, actual)
         AddOperationTest._clean()
 
-    def test_dont_write_content(self):
+    def test_write_property(self):
         AddOperationTest._runTemplateBuilder(
             arguments=['template_builder.py', 'add', 'dont_write_content'],
         )
 
         actual = AddOperationTest._readFileSave('dont_wirte_content.txt')
         self.assertEqual(None, actual)
+        AddOperationTest._clean()
+
+    def test_replace_existing_file_property(self):
+        AddOperationTest._runTemplateBuilder(
+            arguments=['template_builder.py', 'add', 'dont_replace_existing_file'],
+        )
+
+        expected = 'Some random content'
+        actual = AddOperationTest._readFileSave('dont_replace_existing_file.txt')
+        self.assertEqual(expected, actual)
         AddOperationTest._clean()
 
     def test_content_with_single_var(self):
