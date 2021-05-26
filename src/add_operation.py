@@ -21,8 +21,20 @@ class AddOperation(Operation):
         else:
             return arguments[0]
 
-    def run(self, arguments, config):
+    def run(self, arguments):
         workingDirectory = os.getcwd()
+        configPath = workingDirectory + '/template_builder_config.json'
+
+        config = None
+        
+        if configPath is None:
+            print("No template_builder_config.json found. Please add a template_builder_config.json to the root directory of your project.")
+        else:
+            config = Config.load(configPath)
+
+        if config is None:
+            print("No template_builder_config.json found. Please add a template_builder_config.json to the root directory of your project.")
+
         templateName = self.getTemplateName(arguments)
         filePath = config.localTemplatesPath + templateName + '.tbf'
         templateContent = FileManager().readFileContent(filePath)
@@ -127,8 +139,8 @@ class Executor:
         propCount = len(properties)
         content = contentAndProperties.split('\n', propCount)[propCount].strip()
         
-        completePath = scriptPath + path
-        fileDir = os.path.dirname(scriptPath + path)
+        completePath = scriptPath + '/' + path
+        fileDir = os.path.dirname(completePath)
 
         if not os.path.exists(fileDir):
             try:

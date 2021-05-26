@@ -8,6 +8,6 @@ titleAndRating = movieTitle + " (" + movieRating + ")"
 formattedReleaseDate = releaseData.replace("/", ".")
 
 @_output
-- path? /src/test_generated/movies/{{movieTitle}}.txt
+- path? src/test_generated/movies/{{movieTitle}}.txt
 {{titleAndRating}}
 Released on {{formattedReleaseDate}}

@@ -1,16 +1,16 @@
-### vars
-cubitName: Name your cubit
-editor: Whats your name?
-datum: Enter date
+@_input
+cubitName? Name your cubit
+editor? Whats your name?
+datum? Enter date
 
-### py_script
+@_script
 cubitFileName = cubitName + "_cubit"
 cubitClassName = (cubitName.title() + "Cubit").replace("_", "")
 stateFileName = cubitName + "_state"
 stateClassName = (cubitName.title() + "State").replace("_", "")
 
-### content
-path: /generated/cubits/{{cubitName}}/{{cubitFileName}}.dart
+@_output
+- path? generated/cubits/{{cubitName}}/{{cubitFileName}}.dart
 part of cubits;
 
 // Created by {{editor}}
@@ -23,16 +23,16 @@ class {{cubitClassName}} extends Cubit<{{stateClassName}}> {
     }
 }
 
-### content
-#path: /generated/cubits/{{cubitName}}/{{stateFileName}}.dart
+@_output
+- path? generated/cubits/{{cubitName}}/{{stateFileName}}.dart
 part of cubits;
 
 // Created by {{editor}}
 abstract class {{stateClassName}} {}
 
-### content
-#path: /generated/cubits/lib.dart
-#override_existing: false
+@_output
+- path? generated/cubits/lib.dart
+- replaceExistingFile? false
 
 library cubits;
 
