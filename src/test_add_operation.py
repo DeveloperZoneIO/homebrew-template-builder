@@ -19,6 +19,15 @@ class AddOperationTest(unittest.TestCase):
         self.assertEqual(expected, actual)
         AddOperationTest._clean()
 
+    def test_dont_write_content(self):
+        AddOperationTest._runTemplateBuilder(
+            arguments=['template_builder.py', 'add', 'dont_write_content'],
+        )
+
+        actual = AddOperationTest._readFileSave('dont_wirte_content.txt')
+        self.assertEqual(None, actual)
+        AddOperationTest._clean()
+
     def test_content_with_single_var(self):
         AddOperationTest._runTemplateBuilder(
             arguments=['template_builder.py', 'add', 'content_with_single_var'],
@@ -69,7 +78,7 @@ class AddOperationTest(unittest.TestCase):
 
     @staticmethod
     def _clean():
-        shutil.rmtree('src/test_generated/')
+        shutil.rmtree('src/test_generated/', ignore_errors=True)
 
     @staticmethod
     def _runTemplateBuilder(arguments=[], inputs=[]):
@@ -84,6 +93,10 @@ class AddOperationTest(unittest.TestCase):
     @staticmethod
     def _readFile(fileName):
         return FileManager().readFileContent(os.getcwd() + '/src/test_generated/' + fileName)
+
+    @staticmethod
+    def _readFileSave(fileName):
+        return FileManager().readFileContentSafe(os.getcwd() + '/src/test_generated/' + fileName)
 
 if __name__ == '__main__':
     unittest.main()

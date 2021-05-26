@@ -112,6 +112,15 @@ class Executor:
             raise Exception('Missing path? in output section. Please provide a path!')
 
         path = properties['-path']
+        writeFile = 'true'
+
+        if '-writeFile' in properties:
+            writeFile = properties['-writeFile'].lower()
+
+        
+        if writeFile is not 'true':
+            return
+
         propCount = len(properties)
         content = contentAndProperties.split('\n', propCount)[propCount].strip()
         
