@@ -15,5 +15,14 @@ class FileManager:
         file.close()
         return fileContent
 
+    def readFileContentSafe(self, filePath):
+        if os.path.isfile(filePath) != True: 
+            return None
+
+        file = open(filePath)
+        fileContent = file.read()
+        file.close()
+        return fileContent
+
     def writeFile(self):
         pass

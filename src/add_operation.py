@@ -112,6 +112,18 @@ class Executor:
             raise Exception('Missing path? in output section. Please provide a path!')
 
         path = properties['-path']
+        writeFile = 'true'
+        replaceExistingFile = 'true'
+
+        if '-writeFile' in properties:
+            writeFile = properties['-writeFile'].lower()
+
+        if '-replaceExistingFile' in properties:
+            replaceExistingFile = properties['-replaceExistingFile'].lower()
+        
+        if writeFile is not 'true':
+            return
+
         propCount = len(properties)
         content = contentAndProperties.split('\n', propCount)[propCount].strip()
         
@@ -124,6 +136,9 @@ class Executor:
             except OSError as exc:
                 if exc.errno != errno.EEXIST:
                     raise
+
+        if os.path.isfile(completePath) and replaceExistingFile != 'true':
+            return
 
         file = open(completePath, 'w')
         file.write(content)
