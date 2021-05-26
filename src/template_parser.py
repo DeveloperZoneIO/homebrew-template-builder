@@ -38,7 +38,7 @@ class TemplateParser:
         variables = []
 
         for line in lines:
-            nameAndPrompt = line.split(':')
+            nameAndPrompt = line.split('?', 1)
 
             if len(nameAndPrompt) == 2 and nameAndPrompt[0].strip() != '':
                 name = nameAndPrompt[0].strip()

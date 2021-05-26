@@ -1,5 +1,5 @@
 ### vars
-someInput: Type in some random text
+someInput? Type in some random text
 
 ### content
 path: /src/test_generated/single_var_and_content.txt

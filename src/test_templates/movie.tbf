@@ -1,7 +1,7 @@
 ### vars
-movieTitle: Name your cubit
-releaseData: When was the movie released?
-movieRating: Rate this movie
+movieTitle? Name your cubit
+releaseData? When was the movie released?
+movieRating? Rate this movie
 
 ### py_script
 titleAndRating = movieTitle + " (" + movieRating + ")"
