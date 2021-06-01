@@ -2,6 +2,7 @@
 
 from add_command import AddCommand
 from init_command import InitCommand
+from version_command import VersionCommand
 from config import Config
 
 class TemplateBuilder:
@@ -12,6 +13,7 @@ class TemplateBuilder:
         allOperations = [
             AddCommand(),
             InitCommand(),
+            VersionCommand(),
         ]
 
         if len(arguments) <= 1:
