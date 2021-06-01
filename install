@@ -1,7 +1,7 @@
 #!/bin/bash
 
 workingDir=$PWD
-scriptPath="$workingDir"/"template_builder"
+scriptPath="$workingDir"/"template-builder"
 
 cat <<EOF >/usr/local/bin/tb
 #!/bin/bash
