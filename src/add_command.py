@@ -1,3 +1,4 @@
+# Copyright (c) 2021 Michael Pankraz
 
 import os
 from template import Template
@@ -6,38 +7,27 @@ from template_parser import TemplateParser
 from variable import VariableSection, Variable
 from script import Script
 from content import Content
-from opearation import Operation
+from base_command import BaseCommand
 from config import Config
 from input import mockInputs
 
-class AddOperation(Operation):
+class AddCommand(BaseCommand):
+    '''
+    This is the implementation of the template_builders "add" command.
+    '''
 
     def __init__(self):
-        Operation.__init__(self, 'add')
+        BaseCommand.__init__(self, 'add')
 
-    def getTemplateName(self, arguments):
-        if len(arguments) != 1:
-            print('Template name argument missing. Please provide a template name.')
-        else:
-            return arguments[0]
-
-    def run(self, arguments):
-        workingDirectory = os.getcwd()
-        configPath = workingDirectory + '/template_builder_config.json'
-
-        config = None
-        
-        if configPath is None:
-            print("No template_builder_config.json found. Please add a template_builder_config.json to the root directory of your project.")
-        else:
-            config = Config.load(configPath)
+    def run(self, arguments, templateBuilder):
+        config = Config.load(templateBuilder.configJsonPath)
 
         if config is None:
             print("No template_builder_config.json found. Please add a template_builder_config.json to the root directory of your project.")
 
-        templateName = self.getTemplateName(arguments)
-        filePath = config.localTemplatesPath + templateName + '.tbf'
-        templateContent = FileManager().readFileContent(filePath)
+        templateName = self._getTemplateName(arguments)
+        templateFilePath = config.localTemplatesPath + templateName + '.tbf'
+        templateContent = FileManager().readFileContent(templateFilePath)
 
         if templateContent is None:
             print('Couldn\'t find template with name: ' + templateName)
@@ -59,12 +49,21 @@ class AddOperation(Operation):
 
             # Content section
             elif isinstance(section, Content):
+                workingDirectory = os.getcwd()
                 Executor.writeFile(section, allVariables, workingDirectory)
 
             else:
                 print('Unknown section found')
 
         print('>>> ' + templateName.title() + ' successfully created')
+    
+    def _getTemplateName(self, arguments):
+        '''Retrives the name of the template the user wants to add.'''
+
+        if len(arguments) != 1:
+            print('Template name argument missing. Please provide a template name.')
+        else:
+            return arguments[0]
 
 
 class Executor:

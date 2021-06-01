@@ -1,3 +1,5 @@
+# Copyright (c) 2021 Michael Pankraz
+
 class VariableSection:
     def __init__(self, variables):
         self.variables = variables

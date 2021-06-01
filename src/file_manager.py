@@ -1,3 +1,5 @@
+# Copyright (c) 2021 Michael Pankraz
+
 import sys
 import os
 

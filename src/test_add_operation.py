@@ -1,3 +1,5 @@
+# Copyright (c) 2021 Michael Pankraz
+
 from template_builder import TemplateBuilder
 from file_manager import FileManager
 from config import Config
@@ -92,13 +94,13 @@ class AddOperationTest(unittest.TestCase):
 
     @staticmethod
     def _runTemplateBuilder(arguments=[], inputs=[]):
-        workingDirectory = os.getcwd()
-        configPath = workingDirectory + '/src/test_config.json'
-
         for inputValue in inputs:
             addMockInput(inputValue)
         
-        TemplateBuilder.run(arguments, configPath)
+        fileDirectory = os.path.dirname(os.path.realpath(__file__))
+        tb = TemplateBuilder()
+        tb.configJsonPath = fileDirectory + '/test_config.json'
+        tb.run(arguments)
 
     @staticmethod
     def _readFile(fileName):

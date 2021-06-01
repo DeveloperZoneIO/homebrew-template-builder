@@ -1,3 +1,5 @@
+# Copyright (c) 2021 Michael Pankraz
+
 class ContentSettings:
     def __init__(self):
         self.overrideExisting = True

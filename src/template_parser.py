@@ -1,3 +1,5 @@
+# Copyright (c) 2021 Michael Pankraz
+
 from variable import Variable, VariableSection
 from script import Script
 from content import Content

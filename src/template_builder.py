@@ -1,18 +1,18 @@
+# Copyright (c) 2021 Michael Pankraz
 
-from add_operation import AddOperation
-from init_operation import InitOperation
+from add_command import AddCommand
+from init_command import InitCommand
 from config import Config
 
 class TemplateBuilder:
+    def __init__(self):
+        self.configJsonPath = None
 
-    @staticmethod
-    def run(arguments):
+    def run(self, arguments):
         allOperations = [
-            AddOperation(),
-            InitOperation(),
+            AddCommand(),
+            InitCommand(),
         ]
-
-        # TODO: Add documentation to readme.md
 
         if len(arguments) <= 1:
             print('Missing operation! Please provide one of the following arguments to template_builder:')
@@ -25,7 +25,7 @@ class TemplateBuilder:
 
             for operation in allOperations:
                 if operation.identifier == selectedOperation:
-                    operation.run(operationArguments)
+                    operation.run(operationArguments, self)
                     didFoundOperation = True
 
             if not didFoundOperation:

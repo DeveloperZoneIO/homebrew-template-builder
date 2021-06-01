@@ -1,3 +1,5 @@
+# Copyright (c) 2021 Michael Pankraz
+
 from file_manager import FileManager
 import json
 
@@ -26,5 +28,3 @@ class Config:
             config.localTemplatesPath = localTemplatesConfig['path']
         else:
             raise Exception('Missing path for localTemplates.')
-
-
