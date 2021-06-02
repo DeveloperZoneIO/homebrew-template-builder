@@ -1,0 +1,7 @@
+@_input
+someInput? Type in some random text
+
+@_output
+- path? src/test_generated/single_var_and_content.txt
+Your random input is: {{someInput}}
+Your inputs variable is named someInput

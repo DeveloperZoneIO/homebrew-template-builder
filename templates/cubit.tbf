@@ -1,0 +1,39 @@
+@_input
+cubitName? Name your cubit
+editor? Whats your name?
+datum? Enter date
+
+@_script
+cubitFileName = cubitName + "_cubit"
+cubitClassName = (cubitName.title() + "Cubit").replace("_", "")
+stateFileName = cubitName + "_state"
+stateClassName = (cubitName.title() + "State").replace("_", "")
+
+@_output
+- path? generated/cubits/{{cubitName}}/{{cubitFileName}}.dart
+part of cubits;
+
+// Created by {{editor}}
+// Date: {{datum}}
+class {{cubitClassName}} extends Cubit<{{stateClassName}}> {
+    {{cubitClassName}}() : super() { _init(); }
+
+    void _init() {
+        // Das ist ein kommentar
+    }
+}
+
+@_output
+- path? generated/cubits/{{cubitName}}/{{stateFileName}}.dart
+part of cubits;
+
+// Created by {{editor}}
+abstract class {{stateClassName}} {}
+
+@_output
+- path? generated/cubits/lib.dart
+- replaceExistingFile? false
+
+library cubits;
+
+import 'packages:bloc/bloc.dart';

@@ -1,0 +1,4 @@
+@_output
+- path? src/test_generated/content_only.txt
+- writeFile? false
+Some random content

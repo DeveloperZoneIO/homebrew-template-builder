@@ -1,0 +1,15 @@
+#!/bin/bash
+
+workingDir=$PWD
+scriptPath="$workingDir"/"template-builder"
+
+cat <<EOF >/usr/local/bin/tb
+#!/bin/bash
+
+python $scriptPath \$1 \$2
+EOF
+
+chmod +x /usr/local/bin/tb
+
+echo "Template builder is now installed!"
+echo ">> Restart your terminal now"

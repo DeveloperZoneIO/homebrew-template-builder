@@ -1,0 +1,3 @@
+@_output
+- path? src/test_generated/content_only.txt
+Some random content

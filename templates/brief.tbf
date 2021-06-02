@@ -1,0 +1,9 @@
+@_input
+name? Wie heißt du
+age? Wie alt bist du
+
+@_output
+- path? einbrief.txt
+Hallo lieber {{name}}
+sie haben so und so bei uns bestellt
+Da sie erst {{age}} alt sind, dürfen wir ihnen dieses Produkt nicht verkaufen
