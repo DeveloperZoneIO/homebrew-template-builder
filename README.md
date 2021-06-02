@@ -94,6 +94,9 @@ Below the `@_script` tag you can put a custom python script. All global variable
 
 Feel free to define as many `@_output` section as you like.
 
+> :warning: **Warning** 
+Do not use single quotes **'** to defining string. This will not work! Use double quotes **"** instead.
+
 Example:
 ```kotlin
 @_input
