@@ -13,6 +13,11 @@ Check if `tb` was successully installed by runnig:
 $ tb version
 ```
 
+You can also uninstall the template builder by running the following command:
+```bash
+$ uninstall_template_builder
+```
+
 ## Commands
 - `tb init` Generates a default config JSON in the working directory
 - `tb version` Prints the version of the installed template builder
