@@ -1,8 +1,6 @@
 # Template-builder
 A command line tool for generating files based on templates.
 
----
-
 ## Installation on macOS
 
 Open your command line tool and navigate to a directory of your choice where to deposit the template-builder script.
@@ -15,19 +13,15 @@ Check if `tb` was successully installed by runnig:
 $ tb version
 ```
 
----
-### Commands
+## Commands
 - `tb init` Generates a default config JSON in the working directory
 - `tb version` Prints the version of the installed template builder
 - `tb add <templateFileName>` Starts the process of generating a file base on the template with matches the given `templateFileName`
----
 
 ## Basics
 Template builder requires you to have a `template_builder_config.json` inside the directory you are currently working in. You can create a default config via `$ tb init`.
 The value of `localTemplates.path` inside `template_builder_config.json` tells the **template builder** where it has to search for template-builder-files. This has to be a local directory on your machine. A template-builder-file contains instructions for the template builder so that it knows how and what it has to generate. 
 By default `localTemplates.path` is set to `"templates/"`. This tells the template builder that it should use the templates from the directory with the name *templates*, which is located inside your current work directory.
-
----
 
 ## The template-builder-file
 In order to make the `tb add` command work, please add template-builder-files to the *template* folder like mentioned in [Basics](#basics).
