@@ -1,8 +1,14 @@
 #!/bin/bash
 
+# 
+# Script properties
+# 
 workingDir=$PWD
 scriptPath="$workingDir"/"template-builder"
 
+# 
+# script delegation
+# 
 cat <<EOF >/usr/local/bin/tb
 #!/bin/bash
 
@@ -11,5 +17,18 @@ EOF
 
 chmod +x /usr/local/bin/tb
 
-echo "Template builder is now installed!"
-echo ">> Restart your terminal now"
+# 
+# script uninstaller
+# 
+cat <<EOF >/usr/local/bin/uninstall_template_builder
+#!/bin/bash
+
+rm -fr $scriptPath
+rm /usr/local/bin/tb
+rm /usr/local/bin/uninstall_template_builder
+
+EOF
+
+chmod +x /usr/local/bin/uninstall_template_builder
+
+echo ">> Template builder is now installed!"
