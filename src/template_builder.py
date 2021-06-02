@@ -17,8 +17,13 @@ class TemplateBuilder:
         ]
 
         if len(arguments) <= 1:
-            print('Missing operation! Please provide one of the following arguments to template_builder:')
-            print('- add')
+            commandNames = []
+
+            for command in allOperations:
+                commandNames.append('* ' + command.identifier)
+
+            print('Missing command!\nPlease provide one of the following arguments:')
+            print('\n'.join(commandNames))
         else:
             selectedOperation = arguments[1]
             operationArguments = arguments[2:] or []

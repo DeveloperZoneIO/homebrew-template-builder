@@ -2,8 +2,17 @@
 name? Wie heißt du
 age? Wie alt bist du
 
+@_script
+from datetime import datetime
+import re
+
+date = datetime.today().strftime('%Y-%m-%d')
+snakeCaseName = re.sub(r"(?<!^)(?=[A-Z])", "_", "RandomCamelCaseName").lower()
+
 @_output
 - path? einbrief.txt
 Hallo lieber {{name}}
 sie haben so und so bei uns bestellt
 Da sie erst {{age}} alt sind, dürfen wir ihnen dieses Produkt nicht verkaufen
+Datum: {{date}}
+Snake case name: {{snakeCaseName}}

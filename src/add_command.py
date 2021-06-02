@@ -73,7 +73,8 @@ class Executor:
         mutableContent = content
 
         for var in variables:
-            mutableContent = mutableContent.replace('{{'+ var.name +'}}', var.value)
+            if isinstance(var.value, basestring):
+                mutableContent = mutableContent.replace('{{'+ var.name +'}}', var.value)
 
         return mutableContent
 
