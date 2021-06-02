@@ -86,7 +86,7 @@ class Executor:
                 variable.value = mockValue
                 mockInputs.remove(mockValue)
             else:
-                variable.value = raw_input(variable.prompt + ': ')
+                variable.value = raw_input(variable.prompt + ' ')
 
     @staticmethod
     def executeScript(scriptSection, variables):
