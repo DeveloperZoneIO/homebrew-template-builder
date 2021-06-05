@@ -124,16 +124,12 @@ class Executor:
             raise Exception('Missing path? in output section. Please provide a path!')
 
         path = properties['-path']
-        writeFile = 'true'
-        replaceExistingFile = 'true'
+        writeMethod = 'replaceExistingFile'
 
-        if '-writeFile' in properties:
-            writeFile = properties['-writeFile'].lower()
-
-        if '-replaceExistingFile' in properties:
-            replaceExistingFile = properties['-replaceExistingFile'].lower()
+        if '-writeMethod' in properties:
+            writeMethod = properties['-writeMethod'].lower()
         
-        if writeFile is not 'true':
+        if writeMethod == 'none':
             return
 
         propCount = len(properties)
@@ -141,6 +137,19 @@ class Executor:
         
         completePath = scriptPath + '/' + path
         fileDir = os.path.dirname(completePath)
+
+        if writeMethod == 'keepExistingFile' and os.path.exists(completePath):
+            return
+
+        if writeMethod == 'extendExistingFile' and os.path.exists(completePath):
+            existingFileContent = FileManager().readFileContent(completePath)
+            newContent = existingFileContent + '\n' + content
+
+            file = open(completePath, 'w')
+            file.write(content)
+            file.close()
+
+            return
 
         if not os.path.exists(fileDir):
             try:
