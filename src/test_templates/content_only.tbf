@@ -1,3 +1,4 @@
 @_output
-- path? src/test_generated/content_only.txt
+path: src/test_generated/content_only.txt
+content:
 Some random content

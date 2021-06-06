@@ -1,8 +1,10 @@
 @_output
-- path? src/test_generated/writeMethod_keepExistingFile.txt
+path: src/test_generated/writeMethod_keepExistingFile.txt
+content:
 Some random content
 
 @_output
-- path? src/test_generated/writeMethod_keepExistingFile.txt
-- writeMethod? keepExistingFile
+path: src/test_generated/writeMethod_keepExistingFile.txt
+writeMethod: keepExistingFile
+content:
 Some random content 2

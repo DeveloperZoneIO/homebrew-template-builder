@@ -3,7 +3,7 @@
 from template_builder import TemplateBuilder
 from file_manager import FileManager
 from config import Config
-from input import addMockInput
+import input
 
 import unittest
 import os
@@ -19,15 +19,6 @@ class AddOperationTest(unittest.TestCase):
         expected = 'Some random content'
         actual = AddOperationTest._readFile('content_only.txt')
         self.assertEqual(expected, actual)
-        AddOperationTest._clean()
-
-    def test_write_property(self):
-        AddOperationTest._runTemplateBuilder(
-            arguments=['template_builder.py', 'add', 'dont_write_content'],
-        )
-
-        actual = AddOperationTest._readFileSave('dont_wirte_content.txt')
-        self.assertEqual(None, actual)
         AddOperationTest._clean()
 
     def test_writeMethod_none(self):
@@ -124,8 +115,10 @@ class AddOperationTest(unittest.TestCase):
 
     @staticmethod
     def _runTemplateBuilder(arguments=[], inputs=[]):
+        input.isInTestMode = True
+
         for inputValue in inputs:
-            addMockInput(inputValue)
+            input.addMockInput(inputValue)
         
         fileDirectory = os.path.dirname(os.path.realpath(__file__))
         tb = TemplateBuilder()

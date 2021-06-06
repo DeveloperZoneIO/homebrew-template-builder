@@ -9,7 +9,7 @@ from script import Script
 from content import Content
 from base_command import BaseCommand
 from config import Config
-from input import mockInputs
+import input
 from io import IO
 
 class AddCommand(BaseCommand):
@@ -56,7 +56,8 @@ class AddCommand(BaseCommand):
             else:
                 print('Unknown section found')
 
-        print('>>> ' + templateName.title() + ' successfully created')
+        if not input.isInTestMode:
+            print('> ' + templateName + ' successfully created.')
     
     def _getTemplateName(self, arguments):
         '''Retrives the name of the template the user wants to add.'''
@@ -82,10 +83,10 @@ class Executor:
     @staticmethod
     def askForVariableValues(variableSection):
         for variable in variableSection.variables:
-            if len(mockInputs) != 0:
-                mockValue = mockInputs[0]
+            if len(input.mockInputs) != 0:
+                mockValue = input.mockInputs[0]
                 variable.value = mockValue
-                mockInputs.remove(mockValue)
+                input.mockInputs.remove(mockValue)
             else:
                 variable.value = raw_input(variable.prompt + ' ')
 
@@ -110,28 +111,31 @@ class Executor:
 
     @staticmethod
     def writeFile(contentSection, variables, scriptPath):
+        contentSeparator = 'content:\n'
         contentAndProperties = Executor._replacePlaceholdersIn(contentSection.data, variables)
+        propertyBlock, content = contentAndProperties.split(contentSeparator, 1)
         properties = {}
-        lines = contentAndProperties.split('\n')
 
-        for line in lines:
-            strippedLine = line.strip()
-            if strippedLine is not '' and strippedLine[0] == '-':
-                propName = strippedLine.split('?', 1)[0].strip().replace(' ', '')
-                propValue = strippedLine.split('?', 1)[1].strip()
-                properties[propName] = propValue
+        for propertyLine in propertyBlock.split('\n'):
+            strippedLine = propertyLine.strip()
 
-        if '-path' not in properties:
+            if strippedLine is not '':
+                key, value = strippedLine.split(':', 1)
+                key = key.strip().replace(' ', '')
+                value = value.strip()
+                properties[key] = value
+
+        if 'path' not in properties:
             raise Exception('Missing path? in output section. Please provide a path!')
 
-        path = properties['-path']
+        path = properties['path']
         writeMethod = 'replaceExistingFile'
 
-        if '-writeMethod' in properties:
-            writeMethod = properties['-writeMethod'].strip()
+        if 'writeMethod' in properties:
+            writeMethod = properties['writeMethod'].strip()
 
         propCount = len(properties)
-        content = contentAndProperties.split('\n', propCount)[propCount].strip()
+        content = content.rstrip() #contentAndProperties.split('\n', propCount)[propCount].strip()
         completePath = scriptPath + '/' + path
 
         IO.write(completePath, content, method=writeMethod)
