@@ -30,13 +30,43 @@ class AddOperationTest(unittest.TestCase):
         self.assertEqual(None, actual)
         AddOperationTest._clean()
 
-    def test_replace_existing_file_property(self):
+    def test_writeMethod_none(self):
         AddOperationTest._runTemplateBuilder(
-            arguments=['template_builder.py', 'add', 'dont_replace_existing_file'],
+            arguments=['template_builder.py', 'add', 'writeMethod_none'],
         )
 
         expected = 'Some random content'
-        actual = AddOperationTest._readFileSave('dont_replace_existing_file.txt')
+        actual = AddOperationTest._readFileSave('writeMethod_none.txt')
+        self.assertEqual(expected, actual)
+        AddOperationTest._clean()
+
+    def test_writeMethod_replaceExistingFile(self):
+        AddOperationTest._runTemplateBuilder(
+            arguments=['template_builder.py', 'add', 'writeMethod_replaceExistingFile'],
+        )
+
+        expected = 'Some random content 2'
+        actual = AddOperationTest._readFileSave('writeMethod_replaceExistingFile.txt')
+        self.assertEqual(expected, actual)
+        AddOperationTest._clean()
+
+    def test_writeMethod_keepExistingFile(self):
+        AddOperationTest._runTemplateBuilder(
+            arguments=['template_builder.py', 'add', 'writeMethod_keepExistingFile'],
+        )
+
+        expected = 'Some random content'
+        actual = AddOperationTest._readFileSave('writeMethod_keepExistingFile.txt')
+        self.assertEqual(expected, actual)
+        AddOperationTest._clean()
+
+    def test_writeMethod_extendExistingFile(self):
+        AddOperationTest._runTemplateBuilder(
+            arguments=['template_builder.py', 'add', 'writeMethod_extendExistingFile'],
+        )
+
+        expected = 'Some random content\nSome random content 2'
+        actual = AddOperationTest._readFileSave('writeMethod_extendExistingFile.txt')
         self.assertEqual(expected, actual)
         AddOperationTest._clean()
 

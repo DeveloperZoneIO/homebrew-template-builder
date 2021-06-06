@@ -10,6 +10,7 @@ from content import Content
 from base_command import BaseCommand
 from config import Config
 from input import mockInputs
+from io import IO
 
 class AddCommand(BaseCommand):
     '''
@@ -124,34 +125,13 @@ class Executor:
             raise Exception('Missing path? in output section. Please provide a path!')
 
         path = properties['-path']
-        writeFile = 'true'
-        replaceExistingFile = 'true'
+        writeMethod = 'replaceExistingFile'
 
-        if '-writeFile' in properties:
-            writeFile = properties['-writeFile'].lower()
-
-        if '-replaceExistingFile' in properties:
-            replaceExistingFile = properties['-replaceExistingFile'].lower()
-        
-        if writeFile is not 'true':
-            return
+        if '-writeMethod' in properties:
+            writeMethod = properties['-writeMethod'].strip()
 
         propCount = len(properties)
         content = contentAndProperties.split('\n', propCount)[propCount].strip()
-        
         completePath = scriptPath + '/' + path
-        fileDir = os.path.dirname(completePath)
 
-        if not os.path.exists(fileDir):
-            try:
-                os.makedirs(fileDir)
-            except OSError as exc:
-                if exc.errno != errno.EEXIST:
-                    raise
-
-        if os.path.isfile(completePath) and replaceExistingFile != 'true':
-            return
-
-        file = open(completePath, 'w')
-        file.write(content)
-        file.close()
+        IO.write(completePath, content, method=writeMethod)
