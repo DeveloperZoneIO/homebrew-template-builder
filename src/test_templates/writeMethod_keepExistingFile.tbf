@@ -1,0 +1,8 @@
+@_output
+- path? src/test_generated/writeMethod_keepExistingFile.txt
+Some random content
+
+@_output
+- path? src/test_generated/writeMethod_keepExistingFile.txt
+- writeMethod? keepExistingFile
+Some random content 2

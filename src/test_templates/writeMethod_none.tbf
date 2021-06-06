@@ -1,0 +1,8 @@
+@_output
+- path? src/test_generated/writeMethod_none.txt
+Some random content
+
+@_output
+- path? src/test_generated/writeMethod_none.txt
+- writeMethod? none
+Some random content 2

@@ -1,0 +1,8 @@
+@_output
+- path? src/test_generated/writeMethod_replaceExistingFile.txt
+Some random content
+
+@_output
+- path? src/test_generated/writeMethod_replaceExistingFile.txt
+- writeMethod? replaceExistingFile
+Some random content 2
