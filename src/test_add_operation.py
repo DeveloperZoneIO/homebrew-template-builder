@@ -3,7 +3,7 @@
 from template_builder import TemplateBuilder
 from file_manager import FileManager
 from config import Config
-from input import addMockInput
+import input
 
 import unittest
 import os
@@ -115,8 +115,10 @@ class AddOperationTest(unittest.TestCase):
 
     @staticmethod
     def _runTemplateBuilder(arguments=[], inputs=[]):
+        input.isInTestMode = True
+
         for inputValue in inputs:
-            addMockInput(inputValue)
+            input.addMockInput(inputValue)
         
         fileDirectory = os.path.dirname(os.path.realpath(__file__))
         tb = TemplateBuilder()

@@ -9,7 +9,7 @@ from script import Script
 from content import Content
 from base_command import BaseCommand
 from config import Config
-from input import mockInputs
+import input
 from io import IO
 
 class AddCommand(BaseCommand):
@@ -56,7 +56,8 @@ class AddCommand(BaseCommand):
             else:
                 print('Unknown section found')
 
-        print('>>> ' + templateName.title() + ' successfully created')
+        if not input.isInTestMode:
+            print('> ' + templateName + ' successfully created.')
     
     def _getTemplateName(self, arguments):
         '''Retrives the name of the template the user wants to add.'''
@@ -82,10 +83,10 @@ class Executor:
     @staticmethod
     def askForVariableValues(variableSection):
         for variable in variableSection.variables:
-            if len(mockInputs) != 0:
-                mockValue = mockInputs[0]
+            if len(input.mockInputs) != 0:
+                mockValue = input.mockInputs[0]
                 variable.value = mockValue
-                mockInputs.remove(mockValue)
+                input.mockInputs.remove(mockValue)
             else:
                 variable.value = raw_input(variable.prompt + ' ')
 
