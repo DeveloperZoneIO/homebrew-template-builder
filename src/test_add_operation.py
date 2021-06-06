@@ -21,15 +21,6 @@ class AddOperationTest(unittest.TestCase):
         self.assertEqual(expected, actual)
         AddOperationTest._clean()
 
-    def test_write_property(self):
-        AddOperationTest._runTemplateBuilder(
-            arguments=['template_builder.py', 'add', 'dont_write_content'],
-        )
-
-        actual = AddOperationTest._readFileSave('dont_wirte_content.txt')
-        self.assertEqual(None, actual)
-        AddOperationTest._clean()
-
     def test_writeMethod_none(self):
         AddOperationTest._runTemplateBuilder(
             arguments=['template_builder.py', 'add', 'writeMethod_none'],
