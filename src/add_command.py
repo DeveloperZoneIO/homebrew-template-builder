@@ -10,6 +10,7 @@ from content import Content
 from base_command import BaseCommand
 from config import Config
 from input import mockInputs
+from io import IO
 
 class AddCommand(BaseCommand):
     '''
@@ -127,40 +128,10 @@ class Executor:
         writeMethod = 'replaceExistingFile'
 
         if '-writeMethod' in properties:
-            writeMethod = properties['-writeMethod'].lower()
-        
-        if writeMethod == 'none':
-            return
+            writeMethod = properties['-writeMethod'].strip()
 
         propCount = len(properties)
         content = contentAndProperties.split('\n', propCount)[propCount].strip()
-        
         completePath = scriptPath + '/' + path
-        fileDir = os.path.dirname(completePath)
 
-        if writeMethod == 'keepExistingFile' and os.path.exists(completePath):
-            return
-
-        if writeMethod == 'extendExistingFile' and os.path.exists(completePath):
-            existingFileContent = FileManager().readFileContent(completePath)
-            newContent = existingFileContent + '\n' + content
-
-            file = open(completePath, 'w')
-            file.write(content)
-            file.close()
-
-            return
-
-        if not os.path.exists(fileDir):
-            try:
-                os.makedirs(fileDir)
-            except OSError as exc:
-                if exc.errno != errno.EEXIST:
-                    raise
-
-        if os.path.isfile(completePath) and replaceExistingFile != 'true':
-            return
-
-        file = open(completePath, 'w')
-        file.write(content)
-        file.close()
+        IO.write(completePath, content, method=writeMethod)
