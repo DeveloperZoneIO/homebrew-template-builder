@@ -15,7 +15,12 @@ tb version
 
 Run the following command from anywhere in your command line tool to uninstall **template-builder**:
 ```bash
-uninstall_template_builder
+tb uninstall
+```
+
+Run the following command from anywhere in your command line tool to update **template-builder** to the newest version:
+```bash
+tb update
 ```
 
 ## Commands
