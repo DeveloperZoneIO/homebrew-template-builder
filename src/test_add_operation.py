@@ -21,6 +21,18 @@ class AddOperationTest(unittest.TestCase):
         self.assertEqual(expected, actual)
         AddOperationTest._clean()
 
+    def test_empty_content(self):
+        AddOperationTest._runTemplateBuilder(
+            arguments=['template_builder.py', 'add', 'empty_content'],
+        )
+
+        expected = 'Some random content'
+        didCreateDir = os.path.exists(os.getcwd() + '/src/test_generated')
+        didCreateFile = os.path.exists(os.getcwd() + '/src/test_generated/content_only.txt')
+        self.assertTrue(didCreateDir)
+        self.assertFalse(didCreateFile)
+        AddOperationTest._clean()
+
     def test_writeMethod_none(self):
         AddOperationTest._runTemplateBuilder(
             arguments=['template_builder.py', 'add', 'writeMethod_none'],

@@ -1,4 +1,5 @@
 @_output
-path: src/test_generated/content_only.txt
-content:
+path: "src/test_generated/content_only.txt"
+content: """
 Some random content
+"""
