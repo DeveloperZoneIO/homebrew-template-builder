@@ -12,23 +12,36 @@ scriptPath="$workingDir"/"template-builder"
 cat <<EOF >/usr/local/bin/tb
 #!/bin/bash
 
-python $scriptPath \$1 \$2
+if [ "\$1" = "uninstall" ]; then
+    echo "Delete template-builder? [y/n]"
+    read shouldDelete
+
+    if [ "\$shouldDelete" != "y" ]; then
+        exit 1
+    fi
+    
+    rm -fr $scriptPath
+    rm /usr/local/bin/tb
+    echo ">> Template-builder uninstalled."
+
+elif [ "\$1" = "update" ]; then
+    echo "Update template-builder? [y/n]"
+    read shouldUpdate
+
+    if [ "\$shouldUpdate" != "y" ]; then
+        exit 1
+    fi
+
+    rm -fr $scriptPath
+    rm /usr/local/bin/tb
+    git clone -b master https://github.com/DeveloperZoneIO/template-builder.git $scriptPath && template-builder/install
+
+    echo ">> Template-builder updated."
+else
+    python $scriptPath \$1 \$2
+fi
 EOF
 
 chmod +x /usr/local/bin/tb
-
-# 
-# script uninstaller
-# 
-cat <<EOF >/usr/local/bin/uninstall_template_builder
-#!/bin/bash
-
-rm -fr $scriptPath
-rm /usr/local/bin/tb
-rm /usr/local/bin/uninstall_template_builder
-
-EOF
-
-chmod +x /usr/local/bin/uninstall_template_builder
 
 echo ">> Template builder is now installed!"

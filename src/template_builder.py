@@ -24,6 +24,9 @@ class TemplateBuilder:
 
             print('Missing command!\nPlease provide one of the following arguments:')
             print('\n'.join(commandNames))
+            # Bash commands not implemented in python
+            print('* update')
+            print('* uninstall')
         else:
             selectedOperation = arguments[1]
             operationArguments = arguments[2:] or []
