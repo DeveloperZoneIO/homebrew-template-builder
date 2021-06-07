@@ -37,6 +37,20 @@ elif [ "\$1" = "update" ]; then
     git clone -b master https://github.com/DeveloperZoneIO/template-builder.git $scriptPath && template-builder/install
 
     echo ">> Template-builder updated."
+elif [ "\$1" = "switch-version" ]; then
+    if [ -z "\$2" ]; then
+        echo "Please set the version you want to switch to like: tb switch-version 0.2.2"
+    fi
+
+    echo "Switch to version \$2? [y/n]"
+    read shouldSwitchVersion
+
+    if [ "\$shouldSwitchVersion" != "y" ]; then
+        exit 1
+    fi
+
+    cd $scriptPath
+    git checkout tags/\$2
 else
     python $scriptPath \$1 \$2
 fi

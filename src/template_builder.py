@@ -26,6 +26,7 @@ class TemplateBuilder:
             print('\n'.join(commandNames))
             # Bash commands not implemented in python
             print('* update')
+            print('* switch-version')
             print('* uninstall')
         else:
             selectedOperation = arguments[1]
