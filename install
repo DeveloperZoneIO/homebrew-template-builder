@@ -49,11 +49,8 @@ elif [ "\$1" = "switch-version" ]; then
         exit 1
     fi
 
-    rm -fr $scriptPath
-    rm /usr/local/bin/tb
-    git clone -b \$2 https://github.com/DeveloperZoneIO/template-builder.git $scriptPath && template-builder/install
-
-    echo ">> Template-builder version changed."
+    cd $scriptPath
+    git checkout tags/\$2
 else
     python $scriptPath \$1 \$2
 fi

@@ -13,14 +13,19 @@ Check if **template-builder** was successully installed:
 tb version
 ```
 
-Run the following command from anywhere in your command line tool to uninstall **template-builder**:
+Run the following command to uninstall **template-builder**:
 ```bash
 tb uninstall
 ```
 
-Run the following command from anywhere in your command line tool to update **template-builder** to the newest version:
+Run the following command to update **template-builder** to the newest version:
 ```bash
 tb update
+```
+
+Run the following command to switch the version of **template-builder**:
+```bash
+tb switch-version <version>
 ```
 
 ## Commands
