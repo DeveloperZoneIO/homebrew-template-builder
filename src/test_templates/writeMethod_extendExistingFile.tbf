@@ -1,0 +1,12 @@
+@_output
+path: "src/test_generated/writeMethod_extendExistingFile.txt"
+content: """
+Some random content
+"""
+
+@_output
+path: "src/test_generated/writeMethod_extendExistingFile.txt"
+writeMethod: "extendExistingFile"
+content: """
+Some random content 2
+"""

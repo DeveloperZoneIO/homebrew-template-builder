@@ -1,12 +1,14 @@
 @_input
-fileName? Enter file name
-var1? Enter value for var 1
-var2? Enter value for var 2
+fileName: "Enter file name"
+var1: "Enter value for var 1"
+var2: "Enter value for var 2"
 
 @_script
 fullFileName = fileName + ".txt"
 
 @_output
-- path? src/test_generated/{{fullFileName}}
+path: "src/test_generated/{{fullFileName}}"
+content: """
 {{var1}}
 {{var2}}
+"""

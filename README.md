@@ -8,12 +8,12 @@ Then run the following command:
 ```bash
 git clone -b master https://github.com/DeveloperZoneIO/template-builder.git && template-builder/install
 ```
-Then run the following command to check if **template-builder** was successully installed:
+Check if **template-builder** was successully installed:
 ```bash
 tb version
 ```
 
-If you want to uninstall **template-builder** the run the following command from anywhere in your command line tool:
+Run the following command from anywhere in your command line tool to uninstall **template-builder**:
 ```bash
 uninstall_template_builder
 ```
@@ -40,50 +40,50 @@ A template-builder-file can have three sections: `@_input`, `@_script` and `@_ou
 The sections will be executet from top to bottom in the order you have defined them.
 
 #### `@_input`
-The input section is defined by the `@_input` tag. It allows you to define variables with associated prompts. Each variable-prompt pair must be placed on a separate line below the `@_input` tag. A variable-promt pair follows the following scheme: `<variableName>? <some prompt message>`.
-The best place for the `@_input` section will be at the very top of the file.
+The input section is defined by the `@_input` tag. It allows you to define variables with associated prompts. Each variable-prompt pair must be placed on a separate line below the `@_input` tag. They the following scheme: `variableName: "some prompt message"`.
+The best place for the `@_input` section will be at the very top of your file.
 
 Example:
 
-```kotlin
+```python
 @_input
-userName? Enter your name
-userAge? Enter your age
+userName: "Enter your name"
+userAge: "Enter your age"
 ```
 
 #### `@_output`
 The output section is defined by the `@_output` tag. It allows you to define the content of the files that should be generated.
 Feel free to define as many `@_output` section as you like.
+The output section consists of key-value pairs. They have to be placed in separate lines below the `@_output` tag in the same order as listed in the table below. A key-value pair follows the following scheme: `parameterName: "value"`.
 
-##### Parameters
-The output section accepts parameters. They have to be placed below the `@_output` tag. A parameter follows the following scheme: `- <parameterName>? <value>`.
-The following example shows what parameters can be defined:
 
-```kotlin
+|Keys|Values|Default value|Required|
+|-|-|-|-|
+|path|`"any/uri/you/like.txt"`|-|YES
+|writeMethod| `"none"`, `"keepExistingFile"`, `"replaceExistingFile"`, `"extendExistingFile"`|`"replaceExistingFile"`|NO
+|content|`"""Any file content you like. Use a triple quotes!"""`|-|NO
+
+
+Examples
+
+```python
 @_output
-- path? outputFolder/user_data.txt //this is the relative path from the working directory. This parameter is REQUIRED
-- writeFile? false //defaults to true and is OPTIONAL
-- replaceExistingFile? false //defaults to true and is OPTIONAL
+path: "outputFolder/user_data.txt" #this is the relative path from the working directory. This parameter is REQUIRED
+writeMethod: "replaceExistingFile" #defaults to replaceExistingFile and is OPTIONAL
+content: """
+Some custom file content.
+"""
 ```
 
 If you want to use variables from the input or script section as parameter values then just wrap them with double curly brackets.
-
-```kotlin
+```python
 @_output
-- path? outputFolder/{{userName}}.txt
-- writeFile? {{isWriteFileEnabled}} // has to be a string variable containing "true" or "false"
-- replaceExistingFile? {{shouldReplaceExistingFile}} // has to be a string variable containing "true" or "false"
-```
-
-##### File content
-Below the parameters you can put the file content. If you want to use variables form the input section then just wrap them with double curly brackets. 
-
-```kotlin
-@_output
-- path? outputFolder/user_data.txt
-
+path: "outputFolder/{{fileName}}.txt"
+writeMethod: "replaceExistingFile"
+content: """
 Hi,
 my name is {{userName}} and I'm {{userAge}} years old.
+"""
 ```
 
 #### `@_script`
@@ -94,20 +94,25 @@ Below the `@_script` tag you can put a custom python script. All global variable
 
 Feel free to define as many `@_output` section as you like.
 
+> :warning: **Warning** 
+Do not use single quotes **'** to defining string. This will not work! Use double quotes **"** instead.
+
 Example:
-```kotlin
+```python
 @_input
-userName? Enter your name
-userAge? Enter your age
+userName: "Enter your name"
+userAge: "Enter your age"
 
 @_script
-camelCaseName = userName.title() // userName contains the user input because it is defined in the input section above
-date = datetime.today().strftime('%Y-%m-%d') // introduces a new variable containing the current date
+camelCaseName = userName.title() # userName contains the user input because it is defined in the input section above
+date = datetime.today().strftime('%Y-%m-%d') # introduces a new variable containing the current date
 
 @_output
-- path? outputFolder/user_data.txt
-- replaceExistingFile? false
+path: "outputFolder/user_data.txt"
+writeMethod: "replaceExistingFile"
+content: """
 Hi,
 my name is {{userName}} and I'm {{userAge}} years old.
-Date: {{date}} // this is the date defined in the script section
+Date: {{date}}
+"""
 ```
