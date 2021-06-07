@@ -10,6 +10,9 @@ class IO:
 
         IO._createDirectoryIfNotExist(path)
 
+        if content is None:
+            return
+
         if method == 'replaceExistingFile':
             IO._justWriteFile(path, content)
             return

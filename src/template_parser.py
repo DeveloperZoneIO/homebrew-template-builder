@@ -44,7 +44,7 @@ class TemplateParser:
 
             if len(nameAndPrompt) == 2 and nameAndPrompt[0].strip() != '':
                 name = nameAndPrompt[0].strip()
-                prompt = nameAndPrompt[1].strip()
+                prompt = nameAndPrompt[1].strip()[1:-1]
                 variable = Variable(name, prompt)
                 variables.append(variable)
 

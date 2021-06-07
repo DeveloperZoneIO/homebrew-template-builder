@@ -1,10 +1,12 @@
 @_output
-path: src/test_generated/writeMethod_none.txt
-content:
+path: "src/test_generated/writeMethod_none.txt"
+content: """
 Some random content
+"""
 
 @_output
-path: src/test_generated/writeMethod_none.txt
-writeMethod: none
-content:
+path: "src/test_generated/writeMethod_none.txt"
+writeMethod: "none"
+content: """
 Some random content 2
+"""

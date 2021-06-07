@@ -111,18 +111,23 @@ class Executor:
 
     @staticmethod
     def writeFile(contentSection, variables, scriptPath):
-        contentSeparator = 'content:\n'
-        contentAndProperties = Executor._replacePlaceholdersIn(contentSection.data, variables)
-        propertyBlock, content = contentAndProperties.split(contentSeparator, 1)
+        contentSeparator = 'content:'
+        actualData = Executor._replacePlaceholdersIn(contentSection.data, variables)
+        paramsAndContent = actualData.split(contentSeparator, 1)
+        otherKeyValues, content = [paramsAndContent[0], None]
+
+        if len(paramsAndContent) > 1:
+            content = paramsAndContent[1]
+
         properties = {}
 
-        for propertyLine in propertyBlock.split('\n'):
+        for propertyLine in otherKeyValues.split('\n'):
             strippedLine = propertyLine.strip()
 
             if strippedLine is not '':
                 key, value = strippedLine.split(':', 1)
                 key = key.strip().replace(' ', '')
-                value = value.strip()
+                value = value.strip()[1:-1]
                 properties[key] = value
 
         if 'path' not in properties:
@@ -134,8 +139,9 @@ class Executor:
         if 'writeMethod' in properties:
             writeMethod = properties['writeMethod'].strip()
 
-        propCount = len(properties)
-        content = content.rstrip() #contentAndProperties.split('\n', propCount)[propCount].strip()
         completePath = scriptPath + '/' + path
+
+        if content != None:
+            content = content.strip().strip('"""').strip('\n')
 
         IO.write(completePath, content, method=writeMethod)
