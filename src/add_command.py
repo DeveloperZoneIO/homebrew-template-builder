@@ -139,7 +139,10 @@ class Executor:
         if 'writeMethod' in properties:
             writeMethod = properties['writeMethod'].strip()
 
-        completePath = scriptPath + '/' + path
+        completePath = path
+        
+        if len(path) >= 1 and path[0] != '/':
+            completePath = scriptPath + '/' + path
 
         if content != None:
             content = content.strip().strip('"""').strip('\n')
