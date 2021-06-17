@@ -10,3 +10,22 @@ writeMethod: "extendExistingFile"
 content: """
 Some random content 2
 """
+
+@_output
+path: "src/test_generated/writeMethod_extendExistingFile2.txt"
+content: """
+Some random content
+
+// Generated content
+
+// Manual added content
+Manual content
+"""
+
+@_output
+path: "src/test_generated/writeMethod_extendExistingFile2.txt"
+writeMethod: "extendExistingFile"
+extendBelow: "// Generated content"
+content: """
+Some random content 2
+"""

@@ -4,8 +4,10 @@ import os
 
 class IO:
     @staticmethod
-    def write(path, content, method='replaceExistingFile'):
-        if method == 'none':
+    def write(path, content, parameters={'writeMethod': 'replaceExistingFile'}):
+        writeMethod = parameters['writeMethod']
+
+        if writeMethod == 'none':
             return
 
         IO._createDirectoryIfNotExist(path)
@@ -13,21 +15,35 @@ class IO:
         if content is None:
             return
 
-        if method == 'replaceExistingFile':
+        if writeMethod == 'replaceExistingFile':
             IO._justWriteFile(path, content)
             return
 
 
-        if method == 'keepExistingFile':
+        if writeMethod == 'keepExistingFile':
             if os.path.exists(path):
                 return
             else:
                 IO._justWriteFile(path, content)
                 return
 
-        if method == 'extendExistingFile':
+        if writeMethod == 'extendExistingFile':
             if not os.path.exists:
                 IO._justWriteFile(path, content)
+                return
+            elif 'extendBelow' in parameters:
+                existingContent = IO.read(path)
+                contentLines = existingContent.split('\n')
+                finalContentLines = []
+
+                for line in contentLines:
+                    finalContentLines.append(line)
+
+                    if (line.find(parameters['extendBelow']) != -1):
+                        finalContentLines.append(content)
+                
+                newContent = '\n'.join(finalContentLines)
+                IO._justWriteFile(path, newContent)
                 return
             else:
                 existingContent = IO.read(path)
