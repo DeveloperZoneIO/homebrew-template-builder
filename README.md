@@ -67,11 +67,12 @@ Feel free to define as many `@_output` section as you like.
 The output section consists of key-value pairs. They have to be placed in separate lines below the `@_output` tag in the same order as listed in the table below. A key-value pair follows the following scheme: `parameterName: "value"`.
 
 
-|Keys|Values|Default value|Required|
-|-|-|-|-|
-|path|`"any/uri/you/like.txt"`|-|YES
-|writeMethod| `"none"`, `"keepExistingFile"`, `"replaceExistingFile"`, `"extendExistingFile"`|`"replaceExistingFile"`|NO
-|content|`"""Any file content you like. Use a triple quotes!"""`|-|NO
+|Keys|Values|Default value|Required|Description|
+|-|-|-|-|-|
+|path|`"any/uri/you/like.txt"`|-|YES|Where the file should be stored.
+|writeMethod| `"none"`, `"keepExistingFile"`, `"replaceExistingFile"`, `"extendExistingFile"`|`"replaceExistingFile"`|NO|How the file should be stored.
+|extendBelow| `"Any text in you file"`| - |NO|Where the content should be places below inside an existing file. Works only if `writeMethod: "extendExistingFile"`.
+|content|`"""Any file content you like. Use a triple quotes!"""`|-|NO|The content of the file.
 
 
 Examples
