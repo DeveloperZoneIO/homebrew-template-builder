@@ -134,10 +134,16 @@ class Executor:
             raise Exception('Missing path? in output section. Please provide a path!')
 
         path = properties['path']
-        writeMethod = 'replaceExistingFile'
+
+        writeParameters = {}
 
         if 'writeMethod' in properties:
-            writeMethod = properties['writeMethod'].strip()
+            writeParameters['writeMethod'] = properties['writeMethod'].strip()
+        else:
+            writeParameters['writeMethod'] = 'replaceExistingFile'
+
+        if 'extendBelow' in properties:
+            writeParameters['extendBelow'] = properties['extendBelow'].strip()
 
         completePath = path
         
@@ -147,4 +153,4 @@ class Executor:
         if content != None:
             content = content.strip().strip('"""').strip('\n')
 
-        IO.write(completePath, content, method=writeMethod)
+        IO.write(completePath, content, parameters=writeParameters)

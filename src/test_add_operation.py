@@ -68,9 +68,15 @@ class AddOperationTest(unittest.TestCase):
             arguments=['template_builder.py', 'add', 'writeMethod_extendExistingFile'],
         )
 
-        expected = 'Some random content\nSome random content 2'
-        actual = AddOperationTest._readFileSave('writeMethod_extendExistingFile.txt')
-        self.assertEqual(expected, actual)
+        self.assertEqual(
+            'Some random content\nSome random content 2', 
+            AddOperationTest._readFileSave('writeMethod_extendExistingFile.txt'),
+        )
+
+        self.assertEqual(
+            'Some random content\n\n// Generated content\nSome random content 2\n\n// Manual added content\nManual content', 
+            AddOperationTest._readFileSave('writeMethod_extendExistingFile2.txt'),
+        )
         AddOperationTest._clean()
 
     def test_content_with_single_var(self):
