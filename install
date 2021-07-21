@@ -34,7 +34,7 @@ elif [ "\$1" = "update" ]; then
 
     rm -fr $scriptPath
     rm /usr/local/bin/tb
-    git clone -b master https://github.com/DeveloperZoneIO/template-builder.git $scriptPath && template-builder/install
+    git clone -b master https://github.com/DeveloperZoneIO/template-builder.git $scriptPath && ${scriptPath}/template-builder/install
 
     echo ">> Template-builder updated."
 elif [ "\$1" = "switch-version" ]; then

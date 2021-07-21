@@ -30,26 +30,18 @@ class IO:
         if writeMethod == 'extendExistingFile':
             if not os.path.exists:
                 IO._justWriteFile(path, content)
-                return
             elif 'extendBelow' in parameters:
                 existingContent = IO.read(path)
-                contentLines = existingContent.split('\n')
-                finalContentLines = []
+                extendBelowContent = parameters['extendBelow']
+                splittedContent = existingContent.split(extendBelowContent, 1)
 
-                for line in contentLines:
-                    finalContentLines.append(line)
-
-                    if (line.find(parameters['extendBelow']) != -1):
-                        finalContentLines.append(content)
-                
-                newContent = '\n'.join(finalContentLines)
-                IO._justWriteFile(path, newContent)
-                return
+                if len(splittedContent) > 1:
+                    newContent = splittedContent[0] + extendBelowContent + '\n' + content + splittedContent[1]
+                    IO._justWriteFile(path, newContent)
             else:
                 existingContent = IO.read(path)
                 newContent = existingContent + '\n' + content
                 IO._justWriteFile(path, newContent)
-                return
 
     @staticmethod
     def read(path):

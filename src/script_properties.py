@@ -2,6 +2,6 @@
 
 versionMajor = 0
 versionMinor = 2
-versionPatch = 5
+versionPatch = 6
 
 versionName = str(versionMajor) + '.' + str(versionMinor) + '.' + str(versionPatch)
